@@ -18,7 +18,7 @@ from keras.utils.visualize_util import plot
 from PIL import Image, ImageDraw, ImageFont
 import shutil
 
-path = "/Users/j13-taniguchi/study_tensorflow/keras_project/read_place/project_spp"
+path = "/Users/JunTaniguchi/study_tensorflow/keras_project/read_place/project_spp"
 os.chdir(path)
 
 log_filepath = './log'
@@ -52,8 +52,8 @@ input_shape = (50, 100, 1)
 for i in range(len(xy)):
     # 訓練データとテストデータに分割
     X_train_i, X_test_i, y_train_i, y_test_i = cross_validation.train_test_split(X[i], Y[i])
-    X_train_i = X_train_i.reshape(X_train_i.shape[0], input_shape[0], input_shape[1], 1)
-    X_test_i = X_test_i.reshape(X_test_i.shape[0], input_shape[0], input_shape[1], 1)
+    X_train_i = X_train_i.reshape(X_train_i.shape[0], X_train_i.shape[1], X_train_i.shape[2], 1)
+    X_test_i = X_test_i.reshape(X_test_i.shape[0], X_test_i.shape[1], X_test_i.shape[2], 1)
     X_train.append(X_train_i)
     y_train.append(y_train_i)
     X_test.append(X_test_i)
@@ -91,13 +91,13 @@ with tf.Graph().as_default():
                  #keras.callbacks.TensorBoard(log_dir='./logs', histogram_freq=1, write_graph=True)
                 ]
         
-    if os.path.exists('learning_place_name.hdf5'):
-        model.load_weights('learning_place_name.hdf5', by_name=True)
+    if os.path.exists('./param/learning_place_name.hdf5'):
+        model.load_weights('./param/learning_place_name.hdf5', by_name=True)
     # 学習開始
     result_X_test_list = []
     for i in range(len(xy)):
-        if i > 0:
-            model.load_weights('./param/learning_place_name.hdf5')
+        if os.path.exists('./param/learning_place_name.hdf5'):
+            model.load_weights('./param/learning_place_name.hdf5', by_name=True)
         history = model.fit(X_train[i], y_train[i],
                             batch_size=128,
                             nb_epoch=50,
@@ -168,7 +168,7 @@ for idx1, result_X_test in enumerate(result_X_test_list):
         # idx_result_Xを非正規化
         X_test[idx1][idx2] *= 256
         X_img_array = X_test[idx1][idx2]
-        reshape_X = X_img_array.reshape(input_shape[0], input_shape[1])
+        reshape_X = X_img_array.reshape(X_img_array.shape[0], X_img_array.shape[1])
         img = Image.fromarray(np.uint8(reshape_X))
         img.save(incorrect_file_name) 
 print("correct_count   :%s" % str(correct_count))
