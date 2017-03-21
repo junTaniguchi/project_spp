@@ -4,7 +4,7 @@ import numpy as np
 import cv2, random
 
 ttf_list = []
-url = "/Users/j13-taniguchi/study_tensorflow/keras_project/read_place/project_spp"
+url = "/Users/JunTaniguchi/study_tensorflow/keras_project/read_place/project_spp"
 
 os.chdir(url)
 
@@ -86,17 +86,6 @@ X, Y = img_make(X, Y, "6", jp_font_list, place_list, x_pixel=x_pixel, y_pixel=y_
 X, Y = img_make(X, Y, "7", jp_font_list, place_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
 X, Y = img_make(X, Y, "8", jp_font_list, place_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
 X, Y = img_make(X, Y, "9", jp_font_list, place_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
-
-print('finish!!')
-X = np.array(X)
-Y = np.array(Y)
-np.savez("./param/npz/place_name_%s_%s.npz" % ("1", next(gen)), x=X, y=Y)
-print("ok,", len(Y))
-
-x_pixel = 60
-y_pixel = 30
-X = []
-Y = []
 X, Y = img_make(X, Y, "10", jp_font_list, place_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
 X, Y = img_make(X, Y, "11", jp_font_list, place_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
 X, Y = img_make(X, Y, "12", jp_font_list, place_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
@@ -107,6 +96,37 @@ X, Y = img_make(X, Y, "16", jp_font_list, place_list, x_pixel=x_pixel, y_pixel=y
 X, Y = img_make(X, Y, "17", jp_font_list, place_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
 X, Y = img_make(X, Y, "18", jp_font_list, place_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
 X, Y = img_make(X, Y, "19", jp_font_list, place_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
+
+print('finish!!')
+X = np.array(X)
+Y = np.array(Y)
+np.savez("./param/npz/place_name_%s_%s.npz" % ("1", next(gen)), x=X, y=Y)
+print("ok,", len(Y))
+
+x_pixel = 80
+y_pixel = 50
+X = []
+Y = []
+X, Y = img_make(X, Y, "100", jp_font_list, place_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
+X, Y = img_make(X, Y, "101", jp_font_list, place_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
+X, Y = img_make(X, Y, "102", jp_font_list, place_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
+X, Y = img_make(X, Y, "103", jp_font_list, place_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
+X, Y = img_make(X, Y, "104", jp_font_list, place_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
+X, Y = img_make(X, Y, "105", jp_font_list, place_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
+X, Y = img_make(X, Y, "106", jp_font_list, place_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
+X, Y = img_make(X, Y, "107", jp_font_list, place_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
+X, Y = img_make(X, Y, "108", jp_font_list, place_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
+X, Y = img_make(X, Y, "109", jp_font_list, place_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
+X, Y = img_make(X, Y, "110", jp_font_list, place_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
+X, Y = img_make(X, Y, "111", jp_font_list, place_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
+X, Y = img_make(X, Y, "112", jp_font_list, place_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
+X, Y = img_make(X, Y, "113", jp_font_list, place_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
+X, Y = img_make(X, Y, "114", jp_font_list, place_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
+X, Y = img_make(X, Y, "115", jp_font_list, place_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
+X, Y = img_make(X, Y, "116", jp_font_list, place_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
+X, Y = img_make(X, Y, "117", jp_font_list, place_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
+X, Y = img_make(X, Y, "118", jp_font_list, place_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
+X, Y = img_make(X, Y, "119", jp_font_list, place_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
 
 print('finish!!')
 X = np.array(X)
