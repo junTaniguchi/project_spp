@@ -14,12 +14,13 @@ import numpy as np
 from PIL import Image
 import keras.backend.tensorflow_backend as KTF
 from keras.models import model_from_json
+from keras.optimizers import Adam
 import tensorflow as tf
 
 
-os.chdir('/Users/j13-taniguchi/study_tensorflow/keras_project/read_place/project_rcnn')
+os.chdir('/Users/JunTaniguchi/study_tensorflow/keras_project/read_place/project_spp')
 
-from vgg_model import vgg_model
+from spp_model import spp_model
 
 #地名のリストを作成
 with open("./param/place_tokyo.txt", "r") as place_file:
@@ -30,20 +31,31 @@ NUM_CLASSES = len(place_list)
 
 def predict_img(img, model, place_list, input_shape):
     # 画像から特徴部分を抽出
+    img_lbl, regions = selectivesearch.selective_search(img,
+                                                        scale=500,
+                                                        sigma=0.9,
+                                                        min_size=10)
+    # 分類器を使用して判別
+    candidates = set()
     fig, ax = plt.subplots(ncols=1, nrows=1, figsize=(6, 6))
-    gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
-    countours = cv2.findContours(gray,
-                                 cv2.RETR_LIST,
-                                 cv2.CHAIN_APPROX_SIMPLE)[1]
-    print(countours)
-    for cnt in countours:
-        x, y, w, h = cv2.boundingRect(cnt)
-        if h > 10:
+    ax.imshow(img)
+    for r in regions:
+        # 特徴量抽出
+        if r['rect'] in candidates:
             continue
-        if h < 3:
+        # ある一定pixelより小さいものについては除外する
+        if r['size'] < 300:
             continue
-        if h * 2 > w:
+        # ある一定pixelより大きいものについては除外する
+        if r['size'] > 750:
             continue
+        # 特徴量部分の座標を取得
+        x, y, w, h = r['rect']
+        if 2 * h > w:
+            continue
+        if h < 5:
+            continue
+        #print("hの高さ%s" % h)
         img_part = img[y:y+h, x:x+w]
         ax, place_name_list = local_classification(ax, img_part, input_shape, x, y, w, h)
     ax.imshow(img)
@@ -51,17 +63,16 @@ def predict_img(img, model, place_list, input_shape):
 
 def local_classification(ax, img_part, input_shape, x, y, w, h):
     if img_part.shape[0] > 0 and img_part.shape[1] > 0 and img_part.shape[2] == 3:
-        img_resize = cv2.resize(img_part, (input_shape[0], input_shape[1]))
-        img_resize = cv2.cvtColor(img_resize, cv2.COLOR_RGB2GRAY)
+        img_resize = cv2.cvtColor(img_part, cv2.COLOR_RGB2GRAY)
         img_list = []        
         img_list.append(img_resize) 
         np_list = np.array(img_list)
-        pre_list = np_list.reshape(len(np_list), input_shape[0], input_shape[1], 1)
+        pre_list = np_list.reshape(len(np_list), img_resize.shape[0], img_resize.shape[1], 1)
         result_list = model.predict(pre_list.astype(np.float32))
-        print(result_list)
         place_name_list = []
         for idx, result_idx in enumerate(result_list):
-            if max(result_idx) > 0.9:
+            print(result_idx)
+            if max(result_idx) > 0.2:
                 prime_result_idx = result_idx.argmax()
                 part_place_name = place_list[prime_result_idx]
                 rect = mpatches.Rectangle((x, y), w, h, 
@@ -87,10 +98,13 @@ with tf.Graph().as_default():
     session = tf.Session('')
     KTF.set_session(session)
     KTF.set_learning_phase(1)
-    
-    with open('./param/learning_place_name.json', 'r') as model_file:
-        model_json = model_file.read()
-    model = model_from_json(model_json)
+
+    def schedule(epoch, decay=0.9):
+        return base_lr * decay**(epoch)
+    base_lr = 3e-4
+    optim = Adam(lr=base_lr)
+
+    model = spp_model(input_shape, NUM_CLASSES, optim)
     model.load_weights('./param/learning_place_name.hdf5', by_name=True)
     
     result_label_list = predict_img(img, model, place_list, input_shape)
