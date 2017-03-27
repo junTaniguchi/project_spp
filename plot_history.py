@@ -5,7 +5,7 @@ Created on Mon Mar 13 00:02:52 2017
 @author: JunTaniguchi
 """
 import os
-path = "/Users/j13-taniguchi/study_tensorflow/keras_project/read_place/project_spp"
+path = "/Users/JunTaniguchi/study_tensorflow/keras_project/read_place/project_spp"
 os.chdir(path)
 
 def plot_history(history):
@@ -29,7 +29,7 @@ def plot_history(history):
     plt.title('model loss')
     plt.xlabel('epoch')
     plt.ylabel('loss')
-    plt.legend(['loss', 'val_loss'], loc='lower right')
+    plt.legend(['loss', 'val_loss'], loc='upper right')
     filename = "./plot/history_plot_Learning_loss.png"
     plt.savefig(filename)
     plt.show()

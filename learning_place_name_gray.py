@@ -26,10 +26,10 @@ log_filepath = './log'
 from plot_history import plot_history
 from spp_model import spp_model
 #地名のリストを作成
-with open("./param/place_tokyo.txt", "r") as place_file:
-    place_list = place_file.readlines()
-    place_list = [place_str.strip() for place_str in place_list]
-NUM_CLASSES = len(place_list)
+with open("./param/japanese_lang.txt", "r") as jpn_str_file:
+    jpn_str_list = jpn_str_file.read()
+    jpn_str_list = [jpn_str.strip() for jpn_str in jpn_str_list]
+NUM_CLASSES = len(jpn_str_list)
 
 # 存在するnpzファイル全てを取り込む
 npz_list = glob.glob("./param/npz/*.npz") # Mac
@@ -91,13 +91,13 @@ with tf.Graph().as_default():
                  #keras.callbacks.TensorBoard(log_dir='./logs', histogram_freq=1, write_graph=True)
                 ]
         
-    if os.path.exists('./param/learning_place_name.hdf5'):
-        model.load_weights('./param/learning_place_name.hdf5', by_name=True)
+    if os.path.exists('./param/learning_jpn_str.hdf5'):
+        model.load_weights('./param/learning_jpn_str.hdf5', by_name=True)
     # 学習開始
     result_X_test_list = []
     for i in range(len(xy)):
-        if os.path.exists('./param/learning_place_name.hdf5'):
-            model.load_weights('./param/learning_place_name.hdf5', by_name=True)
+        if os.path.exists('./param/learning_jpn_str.hdf5'):
+            model.load_weights('./param/learning_jpn_str.hdf5', by_name=True)
         history = model.fit(X_train[i], y_train[i],
                             batch_size=128,
                             nb_epoch=50,
@@ -112,23 +112,23 @@ with tf.Graph().as_default():
         print('  Test loss    :', score[0])
         print('  Test accuracy;', score[1])
         # モデルを保存
-        model.save_weights('./param/learning_place_name.hdf5')
+        model.save_weights('./param/learning_jpn_str.hdf5')
         # 重みパラメータをJSONフォーマットで出力
         model_json = model.to_json()
-        with open('./param/learning_place_name.json', 'w') as json_file:
+        with open('./param/learning_jpn_str.json', 'w') as json_file:
             #json.dump(model_json, json_file)
             json_file.write(model_json)
 
     plot_history(history)
     # モデルをpngでプロット
     plot(model,
-         to_file='./param/learning_place_name.png', 
+         to_file='./param/learning_jpn_str.png', 
          show_shapes=True,
          show_layer_names=True)
     
     # 重みパラメータをJSONフォーマットで出力
     model_json = model.to_json()
-    with open('./param/learning_place_name.json', 'w') as json_file:
+    with open('./param/learning_jpn_str.json', 'w') as json_file:
         #json.dump(model_json, json_file)
         json_file.write(model_json)
     # チェックポイントとなっていたファイルを削除
@@ -144,10 +144,10 @@ for idx1, result_X_test in enumerate(result_X_test_list):
     for idx2, idx_result_X in enumerate(result_X_test):
         # 予測結果のargmaxを抽出    
         result_idx = idx_result_X.argmax()
-        result_label = place_list[result_idx]
+        result_label = jpn_str_list[result_idx]
         # 正解の番号を抽出
         answer_idx = y_test[idx1][idx2].argmax()
-        answer_label = place_list[answer_idx]
+        answer_label = jpn_str_list[answer_idx]
         # 予測結果と正解の値を比較
         if result_idx == answer_idx:
             correct_message = "correct Awesome: answer: %s result: %s" %(answer_label, result_label)    
