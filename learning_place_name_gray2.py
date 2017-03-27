@@ -86,8 +86,12 @@ with tf.Graph().as_default():
                                  featurewise_std_normalization=True,
                                  width_shift_range=0.2,
                                  height_shift_range=0.2,
+                                 rescale=1./255,
+                                 shear_range=0.2,
+                                 zoom_range=0.2,
                                  rotation_range=20,
-                                 horizontal_flip=True)
+                                 horizontal_flip=True,
+                                 fill_mode='nearest')
     datagen.fit(X_train)
     nb_epoch = 50
     history = model.fit_generator(datagen.flow(X_train, y_train, batch_size=32),

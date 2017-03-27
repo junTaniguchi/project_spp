@@ -81,15 +81,6 @@ y_pixel = 25
 X = []
 Y = []
 X, Y = img_make(X, Y,  "0", jp_font_list, str_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
-X, Y = img_make(X, Y,  "1", jp_font_list, str_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
-X, Y = img_make(X, Y,  "2", jp_font_list, str_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
-X, Y = img_make(X, Y,  "3", jp_font_list, str_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
-X, Y = img_make(X, Y,  "4", jp_font_list, str_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
-X, Y = img_make(X, Y,  "5", jp_font_list, str_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
-X, Y = img_make(X, Y,  "6", jp_font_list, str_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
-X, Y = img_make(X, Y,  "7", jp_font_list, str_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
-X, Y = img_make(X, Y,  "8", jp_font_list, str_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
-X, Y = img_make(X, Y,  "9", jp_font_list, str_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
 
 
 
