@@ -32,7 +32,7 @@ def generator():
 
 def gaussianBlur_image(img_name, jpn_str, image_np, idx1, idx2, X, Y, font_size, x_pixel, y_pixel):
     # opencvのガウシアンフィルターを適応
-    blur = cv2.GaussianBlur(image_np, (5, 5), 0)
+    blur = cv2.GaussianBlur(image_np, (1, 1), 0)
     # グレースケール変換
     grayscale_blur = cv2.cvtColor(blur, cv2.COLOR_RGB2GRAY)
     image = Image.fromarray(grayscale_blur)
@@ -47,7 +47,7 @@ def img_make (X, Y, img_name,jp_font_list, str_list, x_pixel, y_pixel, gen):
 
     for idx1, jp_font in enumerate(jp_font_list):
         
-        for font_size in range(y_pixel - 25, y_pixel, + 1):
+        for font_size in range(y_pixel - 12, y_pixel + 8, + 1):
         
             for idx2, jpn_str in enumerate(str_list):
                 # 画像のピクセルを指定
@@ -60,10 +60,10 @@ def img_make (X, Y, img_name,jp_font_list, str_list, x_pixel, y_pixel, gen):
 
                 # 表示文字のmarginを設定                
                 str_width = font_size
-                x_draw_pixel = (x_pixel - str_width) / 2
-                y_draw_pixel = (y_pixel - font_size) / 2
+                x_draw_pixel = (x_pixel - str_width) / 2.
+                y_draw_pixel = (y_pixel - font_size) / 2.
                 if x_draw_pixel < 0:
-                    x_draw_pixel = (x_pixel - str_width)
+                    x_draw_pixel = (x_pixel - str_width) / 2.
                 # 日本語の文字を入れてみる
                 # 引数は順に「(文字列の左上のx座標, 文字列の左上のy座標)」「フォントの指定」「文字色」
                 draw.text((x_draw_pixel, y_draw_pixel), jpn_str, font=font, fill='#ffffff')
@@ -80,26 +80,17 @@ x_pixel = 25
 y_pixel = 25
 X = []
 Y = []
-X, Y = img_make(X, Y, "0", jp_font_list, str_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
-X, Y = img_make(X, Y, "1", jp_font_list, str_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
-X, Y = img_make(X, Y, "2", jp_font_list, str_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
-X, Y = img_make(X, Y, "3", jp_font_list, str_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
-X, Y = img_make(X, Y, "4", jp_font_list, str_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
-X, Y = img_make(X, Y, "5", jp_font_list, str_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
-X, Y = img_make(X, Y, "6", jp_font_list, str_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
-X, Y = img_make(X, Y, "7", jp_font_list, str_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
-X, Y = img_make(X, Y, "8", jp_font_list, str_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
-X, Y = img_make(X, Y, "9", jp_font_list, str_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
-X, Y = img_make(X, Y, "10", jp_font_list, str_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
-X, Y = img_make(X, Y, "11", jp_font_list, str_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
-X, Y = img_make(X, Y, "12", jp_font_list, str_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
-X, Y = img_make(X, Y, "13", jp_font_list, str_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
-X, Y = img_make(X, Y, "14", jp_font_list, str_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
-X, Y = img_make(X, Y, "15", jp_font_list, str_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
-X, Y = img_make(X, Y, "16", jp_font_list, str_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
-X, Y = img_make(X, Y, "17", jp_font_list, str_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
-X, Y = img_make(X, Y, "18", jp_font_list, str_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
-X, Y = img_make(X, Y, "19", jp_font_list, str_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
+X, Y = img_make(X, Y,  "0", jp_font_list, str_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
+X, Y = img_make(X, Y,  "1", jp_font_list, str_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
+X, Y = img_make(X, Y,  "2", jp_font_list, str_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
+X, Y = img_make(X, Y,  "3", jp_font_list, str_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
+X, Y = img_make(X, Y,  "4", jp_font_list, str_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
+X, Y = img_make(X, Y,  "5", jp_font_list, str_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
+X, Y = img_make(X, Y,  "6", jp_font_list, str_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
+X, Y = img_make(X, Y,  "7", jp_font_list, str_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
+X, Y = img_make(X, Y,  "8", jp_font_list, str_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
+X, Y = img_make(X, Y,  "9", jp_font_list, str_list, x_pixel=x_pixel, y_pixel=y_pixel, gen=gen)
+
 
 
 X = np.array(X)
